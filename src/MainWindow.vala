@@ -297,14 +297,14 @@ namespace Formatter {
         }
 
         private void on_select_filesystem (Gtk.FlowBoxChild item) {
-            debug ("Selected filesystem: %s", (item as Formatter.Filesystem).filesystem.get_name ());
+            //debug ("Selected filesystem: %s", (item as Formatter.Filesystem).filesystem.get_name ());
             selected_filesystem = item as Formatter.Filesystem;
             FormatterApp.settings.set_enum ("default-format", (int) selected_filesystem.filesystem);
             filesystem_popover.visible = false;
         }
 
         private void on_select_drive (Gtk.FlowBoxChild item) {
-            debug ("Selected drive: %s", (item as Formatter.Device).drive.get_name ());
+            //debug ("Selected drive: %s", (item as Formatter.Device).drive.get_name ());
             selected_device = item as Formatter.Device;
             device_popover.visible = false;
         }
@@ -379,7 +379,8 @@ namespace Formatter {
         private void device_removed (GLib.Drive drive) {
             debug ("Remove device from list");
             foreach (var child in device_list.get_children ()) {
-                if ((child as Device).drive == drive) {
+                var childDevice = (Device)child;
+                if (childDevice.drive == drive) {
                     device_list.remove (child);
                 }
             }
